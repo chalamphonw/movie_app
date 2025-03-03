@@ -19,7 +19,7 @@ class Movie {
       'title': title,
       'rating': rating,
       'genre': genre,
-      'releaseDate': releaseDate.toIso8601String(), // แปลง DateTime เป็น String
+      'releaseDate': releaseDate.toIso8601String(),
     };
   }
 
@@ -29,7 +29,7 @@ class Movie {
       title: map['title'],
       rating: map['rating'],
       genre: map['genre'],
-      releaseDate: DateTime.parse(map['releaseDate']), // แปลง String เป็น DateTime
+      releaseDate: DateTime.parse(map['releaseDate']),
     );
   }
 }

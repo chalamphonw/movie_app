@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'add_edit_movie_page.dart';
-// ignore: library_prefixes
 import 'database_helper.dart' as dbHelperLib;
-// ignore: library_prefixes
 import 'movie_model.dart' as movieModelLib;
 
 class HomePage extends StatefulWidget {
@@ -43,19 +41,26 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (context, index) {
           final movie = movies[index];
           return Dismissible(
-            key: Key(movie.id.toString()),
+            key: Key(movie.id.toString()), // เพิ่ม key ให้กับ Dismissible
             onDismissed: (direction) async {
               await dbHelper.deleteMovie(movie.id!);
               _refreshMovieList();
-              // ignore: use_build_context_synchronously
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('ภาพยนตร์ถูกลบแล้ว')),
               );
             },
             background: Container(color: Colors.red),
             child: ListTile(
+              key: Key('movie_${movie.id}'), // เพิ่ม key ให้กับ ListTile
               title: Text(movie.title),
-              subtitle: Text('คะแนน: ${movie.rating}, ประเภท: ${movie.genre}'),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('คะแนน: ${movie.rating}'),
+                  Text('ประเภท: ${movie.genre}'),
+                  Text('วันที่ฉาย: ${movie.releaseDate.toLocal()}'), // เพิ่มวันที่ฉาย
+                ],
+              ),
               onTap: () async {
                 final result = await Navigator.push(
                   context,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'movie_model.dart';
+// ignore: library_prefixes
+import 'movie_model.dart' as movieModelLib;
 
 class AddEditMoviePage extends StatefulWidget {
-  final Movie? movie;
+  final movieModelLib.Movie? movie;
 
   const AddEditMoviePage({super.key, this.movie});
 
@@ -86,7 +87,7 @@ class _AddEditMoviePageState extends State<AddEditMoviePage> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    final movie = Movie(
+                    final movie = movieModelLib.Movie(
                       id: widget.movie?.id,
                       title: _titleController.text,
                       rating: int.parse(_ratingController.text),
